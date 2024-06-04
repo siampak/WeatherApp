@@ -23,6 +23,7 @@ class AdapterWeatherList(val context: Context):RecyclerView.Adapter<AdapterWeath
                                 parent,
                                 false
                         )
+
                 )
 
         }
