@@ -3,7 +3,7 @@ package com.example.weatherapp.models
 data class CurrentLocation(
     var cod: String?,
     var count: Int?,
-    var list: ArrayList<List> = arrayListOf(),
+    var list: ArrayList<ListA> = arrayListOf(),
     var message: String?
 )
 
@@ -41,7 +41,7 @@ data class Wind(
 )
 
 
-data class List (
+data class ListA (
     var clouds: Clouds?,
     var coord: Coord?,
     var dt: Int?,

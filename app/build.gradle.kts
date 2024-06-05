@@ -63,6 +63,9 @@ dependencies {
 
 
     //retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.moshi)
+//    implementation (libs.retrofit)
+//    implementation (libs.converter.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit2.converter.gson)
 }
