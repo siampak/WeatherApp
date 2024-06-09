@@ -3,7 +3,7 @@ package com.example.weatherapp.models
 data class CurrentLocation(
     var cod: String?,
     var count: Int?,
-    var list: ArrayList<ListA> = arrayListOf(),
+    val list: ArrayList<ListA> = arrayListOf(),
     var message: String?
 )
 
@@ -12,8 +12,8 @@ data class Clouds(
 )
 
 data class Coord(
-    var lat: Double?,
-    var lon: Double?
+    val lat: Double,
+    val lon: Double
 )
 data class Main(
     var feels_like: Double?,
@@ -21,7 +21,7 @@ data class Main(
     var humidity: Int?,
     var pressure: Int?,
     var sea_level: Int?,
-    var temp: Double?,
+    var temp: Double,
     var temp_max: Double?,
     var temp_min: Double?
 )
@@ -30,10 +30,10 @@ data class Sys(
 )
 
 data class Weather(
-    var description: String?,
+    val description: String,
     var icon: String?,
     var id: Int?,
-    var main: String?
+    val main: String
 )
 data class Wind(
     var deg: Int?,
@@ -46,11 +46,11 @@ data class ListA (
     var coord: Coord?,
     var dt: Int?,
     var id: Int?,
-    var main: Main?,
-    var name: String?,
+    val main: Main,
+    var name: String,
     var rain: Any?,
     var snow: Any?,
     var sys: Sys?,
-    var weather: ArrayList<Weather> = arrayListOf(),
+    val weather: ArrayList<Weather> = arrayListOf(),
     var wind: Wind?
 )

@@ -9,7 +9,7 @@ import com.example.weatherapp.databinding.WeatherPlaceItemBinding
 
 import com.example.weatherapp.models.ListA
 
-class AdapterWeatherList(private val weatherList: List<ListA>):RecyclerView.Adapter<AdapterWeatherList.WeatherViewHolder>() {
+class AdapterWeatherList(private var weatherList: List<ListA>):RecyclerView.Adapter<AdapterWeatherList.WeatherViewHolder>() {
         class WeatherViewHolder(val binding: WeatherPlaceItemBinding) :
                 RecyclerView.ViewHolder(binding.root)
 
@@ -38,12 +38,20 @@ class AdapterWeatherList(private val weatherList: List<ListA>):RecyclerView.Adap
                 holder.binding.apply {
                         tvWeatherLocation.text = weatherItem.name
                         tvWeatherStatus.text = weatherItem.weather[0].description
-                        tvProductCount.text ="${weatherItem.main?.temp}°C"
+                        tvTemperature.text ="${Math.round(weatherItem.main.temp)}°C"
+
                 }
+//                notifyDataSetChanged()
 
         }
 
+        fun updateData(newWeatherList: List<ListA>) {
+                weatherList = newWeatherList
+                notifyDataSetChanged()  //for List show
+        }
 }
+
+
 
 
 
