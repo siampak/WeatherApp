@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
+
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -56,6 +60,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     //location
     implementation(libs.play.services.location)
+    implementation(libs.play.services.maps)
+    implementation (libs.play.services.maps)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

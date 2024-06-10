@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.databinding.FragmentWeatherPlaceBinding
 import com.example.weatherapp.models.CurrentLocation
+import com.example.weatherapp.models.ListA
 import com.example.weatherapp.network.RetrofitInstance
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -30,6 +32,8 @@ class WeatherPlaceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWeatherPlaceBinding.inflate(layoutInflater)
+
+
         return binding.root
     }
 
@@ -37,7 +41,9 @@ class WeatherPlaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvWeatherPlaceList.layoutManager = LinearLayoutManager(requireContext())
-        weatherAdapter = AdapterWeatherList(emptyList())
+        weatherAdapter = AdapterWeatherList(emptyList()){ item ->
+            adapterOnClick(item)
+        }
         binding.rvWeatherPlaceList.adapter = weatherAdapter
 
       //For Location Detect;  fetchWeatherData(like "Dhaka")
@@ -79,7 +85,7 @@ class WeatherPlaceFragment : Fragment() {
                 }
             }
             .addOnFailureListener { e ->
-                // Handle failure
+
                 Log.d("WeatherPlaceFragment", "Location: getUserLocationAndFetchWeather : addOnFailureListener $e")
 
             }
@@ -87,7 +93,7 @@ class WeatherPlaceFragment : Fragment() {
 
     private fun fetchWeatherData(latitude: Double, longitude: Double) {
         val apiKey = "e384f9ac095b2109c751d95296f8ea76" // Replace with your actual API key
-        RetrofitInstance.apiService.getCurrentWeather(latitude,longitude, apiKey)
+        RetrofitInstance.apiService.getCurrentWeather(latitude,longitude, cnt = 50, apiKey)
             .enqueue(object : Callback<CurrentLocation> {
                 override fun onResponse(
                     call: Call<CurrentLocation>,
@@ -97,20 +103,32 @@ class WeatherPlaceFragment : Fragment() {
                         response.body()?.let { currentLocation ->
 //                            val weatherList = currentLocation.list ?: emptyList()
                             weatherAdapter.updateData(currentLocation.list)
-//                            binding.rvWeatherPlaceList.adapter = weatherAdapter
+                            binding.rvWeatherPlaceList.adapter = weatherAdapter
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<CurrentLocation>, t: Throwable) {
-                    // Handle the error
+
                 }
             })
+    }
+
+    fun adapterOnClick(item:ListA){
+        val action = WeatherPlaceFragmentDirections.actionWeatherPlaceFragmentToWeatherMapsFragment(item)
+        findNavController().navigate(action)
     }
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
+//    private fun navigatingToWeatherMapFragment() {
+//
+//        binding.toolbarTitle.setOnClickListener{
+//            findNavController().navigate(R.id.action_weatherPlaceFragment_to_weatherMapsFragment)
+//        }
+//    }
 }
 
 //    private fun fetchWeatherData(location: String) {

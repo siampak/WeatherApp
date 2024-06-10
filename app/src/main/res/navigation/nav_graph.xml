@@ -9,5 +9,28 @@
         android:id="@+id/weatherPlaceFragment"
         android:name="com.example.weatherapp.WeatherPlaceFragment"
         android:label="fragment_weather_place"
-        tools:layout="@layout/fragment_weather_place" />
+        tools:layout="@layout/fragment_weather_place" >
+        <action
+            android:id="@+id/action_weatherPlaceFragment_to_weatherMapsFragment"
+            app:destination="@id/weatherMapsFragment" />
+        <argument
+            android:name="ListA"
+            app:argType="com.example.weatherapp.models.ListA" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherMapsFragment"
+        android:name="com.example.weatherapp.WeatherMapsFragment"
+        android:label="fragment_weather_maps"
+        tools:layout="@layout/fragment_weather_maps" >
+        <action
+            android:id="@+id/action_weatherMapsFragment_to_weatherPlaceFragment"
+            app:destination="@id/weatherPlaceFragment"
+            app:popUpTo="@id/weatherPlaceFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="ListA"
+            app:argType="com.example.weatherapp.models.ListA" />
+
+
+    </fragment>
 </navigation>

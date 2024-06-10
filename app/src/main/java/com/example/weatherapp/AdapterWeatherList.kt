@@ -1,17 +1,20 @@
 package com.example.weatherapp
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.findNavController
 import com.example.weatherapp.databinding.WeatherPlaceItemBinding
 
 import com.example.weatherapp.models.ListA
 
-class AdapterWeatherList(private var weatherList: List<ListA>):RecyclerView.Adapter<AdapterWeatherList.WeatherViewHolder>() {
+class AdapterWeatherList(private var weatherList: List<ListA>, val onClickAction:(ListA) -> Unit):RecyclerView.Adapter<AdapterWeatherList.WeatherViewHolder>() {
         class WeatherViewHolder(val binding: WeatherPlaceItemBinding) :
                 RecyclerView.ViewHolder(binding.root)
+
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
@@ -28,7 +31,6 @@ class AdapterWeatherList(private var weatherList: List<ListA>):RecyclerView.Adap
         }
 
         override fun getItemCount(): Int {
-
                 return weatherList.size
         }
 
@@ -38,7 +40,11 @@ class AdapterWeatherList(private var weatherList: List<ListA>):RecyclerView.Adap
                 holder.binding.apply {
                         tvWeatherLocation.text = weatherItem.name
                         tvWeatherStatus.text = weatherItem.weather[0].description
-                        tvTemperature.text ="${Math.round(weatherItem.main.temp)}°C"
+                        tvTemperature.text ="${weatherItem.main.temp}°C"
+
+                        root.setOnClickListener {
+                            onClickAction.invoke(weatherItem)
+                        }
 
                 }
 //                notifyDataSetChanged()

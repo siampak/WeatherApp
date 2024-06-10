@@ -1,5 +1,7 @@
 package com.example.weatherapp.models
 
+import java.io.Serializable
+
 data class CurrentLocation(
     var cod: String?,
     var count: Int?,
@@ -53,4 +55,4 @@ data class ListA (
     var sys: Sys?,
     val weather: ArrayList<Weather> = arrayListOf(),
     var wind: Wind?
-)
+):Serializable
