@@ -40,7 +40,8 @@ class AdapterWeatherList(private var weatherList: List<ListA>, val onClickAction
                 holder.binding.apply {
                         tvWeatherLocation.text = weatherItem.name
                         tvWeatherStatus.text = weatherItem.weather[0].description
-                        tvTemperature.text ="${weatherItem.main.temp}°C"
+//                        tvTemperature.text ="${(weatherItem.main.temp)-273.15}°C"
+                        tvTemperature.text = "${Math.round((weatherItem.main.temp - 273.15)).toInt()}°C"
 
                         root.setOnClickListener {
                             onClickAction.invoke(weatherItem)

@@ -32,7 +32,7 @@ data class Sys(
 )
 
 data class Weather(
-    val description: String,
+    var description: String,
     var icon: String?,
     var id: Int?,
     val main: String
